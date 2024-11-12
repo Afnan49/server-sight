@@ -21,6 +21,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './new-ticket.component.css',
 })
 export class NewTicketComponent {
+  enteredTitle = '';
+  enteredText = '';
   // @Output()tickets=new EventEmitter()
 
   tickets = output<{ title: string; request: string }>();
@@ -28,11 +30,12 @@ export class NewTicketComponent {
   @ViewChild('form') form?: ElementRef<HTMLFormElement>;
   // private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
 
-  onSubmit(title: HTMLInputElement, text: HTMLTextAreaElement) {
+  onSubmit() {
     this.tickets.emit({
-      title: title.value,
-      request: text.value,
+      title: this.enteredTitle,
+      request: this.enteredText,
     });
-    this.form?.nativeElement.reset();
+    this.enteredTitle = '';
+    this.enteredText = '';
   }
 }
